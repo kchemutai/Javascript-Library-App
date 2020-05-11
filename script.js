@@ -100,9 +100,9 @@ render()
 function deleteFromLocalStorage(index){
     let booksArray = getBooks();
     console.log(booksArray)
-    let newBooksArray = booksArray.splice(index,1)
-    console.log(newBooksArray)
-    localStorage.setItem('myLibrary',JSON.stringify(newBooksArray))
+    booksArray.splice(index,1)
+    console.log(booksArray)
+    localStorage.setItem('myLibrary',JSON.stringify(booksArray))
     showAlert('Delete successful', 'success')
     console.log(getBooks())
 }
@@ -138,18 +138,18 @@ function updateBook(book){
     let books = getBooks()
     const bookIndex = book.parentElement.parentElement.parentElement.dataset.indx
     let bookToUpdate = books[bookIndex]
-    // openForm()
-    // let title = document.querySelector('#title').value = bookToUpdate.title
-    // let author = document.querySelector('#author').value = bookToUpdate.author
-    // let pages = document.querySelector('#pages').value = bookToUpdate.pages
-    // let read = document.querySelector('#read').checked;
+    openForm()
+    let title = document.querySelector('#title').value = bookToUpdate.title
+    let author = document.querySelector('#author').value = bookToUpdate.author
+    let pages = document.querySelector('#pages').value = bookToUpdate.pages
+    let read = document.querySelector('#read').checked;
 
-    // let newTitle = document.querySelector('#title').value
-    // let newAuthor = document.querySelector('#author').value
-    // let newPages = document.querySelector('#pages').value 
-    // books[bookIndex] = new Book(newTitle,newAuthor, newPages,read)
-    // console.log(books)
-    // //showAlert('Update successful', 'success')
+    let newTitle = document.querySelector('#title').value
+    let newAuthor = document.querySelector('#author').value
+    let newPages = document.querySelector('#pages').value 
+    books[bookIndex] = new Book(newTitle,newAuthor, newPages,read)
+    console.log(books)
+    showAlert('Update successful', 'success')
 }
 
 function openForm() {
