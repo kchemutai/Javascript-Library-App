@@ -1,0 +1,29 @@
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: left;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+}
+.form-container > input{
+  display: block;
+  width: 150px;
+  height: 2px;
+  padding: 10px;
+  margin: 5px;
+}
+
+.form-container > button{
+  margin-top: 20px;
+}
+.form-container{
+  margin-left: 20px;
+}
+
+#addNewBook{
+  width: 100px;
+}
+input{
+  display: block;
+}
