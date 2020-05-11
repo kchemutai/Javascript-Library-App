@@ -15,7 +15,7 @@
 }
 
 .form-container > button{
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .form-container{
   margin-left: 20px;
@@ -26,4 +26,22 @@
 }
 input{
   display: block;
+}
+.card-body{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+}
+.card > .card-body{
+  display: flex;
+  flex-direction: column;
+}
+.delete{
+
+  margin-top: 10px;
+  
+}
+.update{
+
+  margin-top: 10px;
+
 }

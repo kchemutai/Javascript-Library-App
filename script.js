@@ -1,3 +1,17 @@
+
+let myLibrary = []
+function Book(title,author,pages,read){
+    this.title =title,
+    this.author=author,
+    this.pages = pages,
+    this.read=read,
+    this.info = ()=>{
+       return `The ${this.title} by ${this.author}, ${this.pages} pages, this Book is ${this.read}`
+    }
+}
+
+Book.prototype.read = true?  'The book is Read' : 'Not yet Read'
+
 let cards = document.querySelector('.card-body') 
 let addNewBook = document.querySelector('#addNewBook')
 const submitBtn = document.querySelector('#submitBtn')
@@ -22,17 +36,6 @@ cardBody.addEventListener('click',(e)=>{
 
 submitBtn.addEventListener('click', addBook)
 
-let myLibrary = []
-function Book(title,author,pages,read){
-    this.title =title,
-    this.author=author,
-    this.pages = pages,
-    this.read=read,
-    this.info = ()=>{
-       return `The ${this.title} by ${this.author}, ${this.pages} pages, this Book is ${this.read}`
-    }
-}
-
 function addBookToLibrary(Book){
     myLibrary.push(Book)
     saveBookToLocalStorage()
@@ -54,9 +57,16 @@ function saveBookToLocalStorage(book){
     bookList.push(book)
     let books = JSON.stringify(bookList)
     localStorage.setItem('myLibrary',books)
+    clearFields()
     render()
 }
 
+function clearFields(){
+    document.querySelector('#title').value = ''
+    document.querySelector('#author').value = ''
+    document.querySelector('#pages').value = ''
+    document.querySelector('#read').checked = false
+}
 
 function addBook(){
     let title = document.querySelector('#title').value
@@ -86,15 +96,14 @@ function render()
                   <h5 class="card-title">Author:  ${Book.author}</h5>
                   <h5 class="card-title">Pages:  ${Book.pages}</h5>
                   <h5 class="card-title">Read:  ${Book.read}</h5>
-                  <button type="button" class="btn btn-primary mr-4 update">Update</button>
-                  <button type="button" class="btn btn-danger ml-4 delete">Delete</button>
+                  <button type="button" class="btn btn-primary update">Change Read Status</button>
+                  <button type="button" class="btn btn-danger delete">Delete</button>
                 </div>
               </div>
         </blockquote>`
     })
 }
 
-render()
 
 //delete from local storage
 function deleteFromLocalStorage(index){
@@ -115,13 +124,13 @@ function showAlert(text, className){
     div.className = `alert alert-${className}`;
     let txt = document.createTextNode(text)
     div.appendChild(txt)
-
+    
     //place it before the div that contains the form #myForm
-
+    
     let myFormContainer = document.querySelector('#myForm')
     let card = document.querySelector('.card');
     card.insertBefore(div, myFormContainer)  
-
+    
     //remove the alert after 3 seonds
     let alert = document.querySelector('.alert')
     setTimeout(()=>alert.remove(),3000);
@@ -135,28 +144,20 @@ function deleteBook(book){
 }
 
 function updateBook(book){
+    console.log('function working')
+    const bookIndex = parseInt(book.parentElement.parentElement.parentElement.dataset.indx)
     let books = getBooks()
-    const bookIndex = book.parentElement.parentElement.parentElement.dataset.indx
-    let bookToUpdate = books[bookIndex]
-    openForm()
-    let title = document.querySelector('#title').value = bookToUpdate.title
-    let author = document.querySelector('#author').value = bookToUpdate.author
-    let pages = document.querySelector('#pages').value = bookToUpdate.pages
-    let read = document.querySelector('#read').checked;
-
-    let newTitle = document.querySelector('#title').value
-    let newAuthor = document.querySelector('#author').value
-    let newPages = document.querySelector('#pages').value 
-    books[bookIndex] = new Book(newTitle,newAuthor, newPages,read)
-    console.log(books)
-    showAlert('Update successful', 'success')
+   let readStatus = books[bookIndex].read
+    console.log(readStatus)
 }
 
 function openForm() {
     document.getElementById("myForm").style.display = "block";
-  }
+}
 
-  function closeForm() {
+function closeForm() {
     document.getElementById("myForm").style.display = "none";
-  }
+}
 
+
+render()
