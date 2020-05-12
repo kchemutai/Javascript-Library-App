@@ -10,7 +10,6 @@ function Book(title,author,pages,read){
     }
 }
 
-Book.prototype.read = true?  'The book is Read' : 'Not yet Read'
 
 let cards = document.querySelector('.card-body') 
 let addNewBook = document.querySelector('#addNewBook')
@@ -147,11 +146,16 @@ function deleteBook(book){
 }
 
 function updateBook(book){
-    console.log('function working')
     const bookIndex = parseInt(book.parentElement.parentElement.parentElement.dataset.indx)
     let books = getBooks()
-   let readStatus = books[bookIndex].read
-    console.log(readStatus)
+   if(books[bookIndex].read){
+    books[bookIndex].read = false
+   }
+   else{
+    books[bookIndex].read=true
+   }
+   localStorage.setItem('myLibrary', JSON.stringify(books))
+   location.reload();
 }
 
 function openForm() {
