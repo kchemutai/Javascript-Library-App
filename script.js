@@ -23,6 +23,8 @@ addNewBook.addEventListener('click',()=>{
     document.querySelector('#myForm').style.display = "inline"; 
 })
 
+//load the cards when page is loaded
+document.addEventListener('pageload', render())
 
 //check what is clicked in the card holders
 cardBody.addEventListener('click',(e)=>{
@@ -58,7 +60,6 @@ function saveBookToLocalStorage(book){
     let books = JSON.stringify(bookList)
     localStorage.setItem('myLibrary',books)
     clearFields()
-    render()
 }
 
 function clearFields(){
@@ -80,26 +81,28 @@ function addBook(){
     }
     else{
         saveBookToLocalStorage(myBook)
+        location.reload();
         showAlert('Book successfully Saved', 'success')
+
     }
 }
 
 function render()
 {
-    getBooks()
-    myLibrary.forEach((Book, index)=>{
+    let bks = getBooks()
+    bks.forEach((Book, index)=>{
         cards.innerHTML +=
         `<blockquote class="blockquote mb-0" data-indx=${index}>
-            <div class="card border-primary mb-3" style="max-width: 20rem;">
-                <div class="card-header h4">${Book.title}</div>
-                <div class="card-body text-primary">
-                  <h5 class="card-title">Author:  ${Book.author}</h5>
-                  <h5 class="card-title">Pages:  ${Book.pages}</h5>
-                  <h5 class="card-title">Read:  ${Book.read}</h5>
-                  <button type="button" class="btn btn-primary update">Change Read Status</button>
-                  <button type="button" class="btn btn-danger delete">Delete</button>
-                </div>
-              </div>
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header h4">${Book.title}</div>
+        <div class="card-body text-primary">
+        <h5 class="card-title">Author:  ${Book.author}</h5>
+        <h5 class="card-title">Pages:  ${Book.pages}</h5>
+        <h5 class="card-title">Read:  ${Book.read}</h5>
+        <button type="button" class="btn btn-primary update">Change Read Status</button>
+        <button type="button" class="btn btn-danger delete">Delete</button>
+        </div>
+        </div>
         </blockquote>`
     })
 }
@@ -159,5 +162,3 @@ function closeForm() {
     document.getElementById("myForm").style.display = "none";
 }
 
-
-render()
